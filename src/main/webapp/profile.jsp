@@ -12,5 +12,6 @@
 </head>
 <body>
 <h1>Here is your profile</h1>
+<h1>Hello there, ${name}!</h1>
 </body>
 </html>
