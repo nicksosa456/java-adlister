@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: nicholassosa
-  Date: 8/27/19
-  Time: 12:34
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,7 +23,7 @@
             <label for="password">Password</label>
             <input id="password" name="password" class="form-control" type="password">
         </div>
-        <input type="submit" class="btn btn-primary btn-block" value="Log In">
+        <input type="submit" class="btn btn-primary btn-block" value="Register">
     </form>
 </div>
 </body>
