@@ -3,6 +3,8 @@ import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQLUsersDao implements Users {
     private Connection connection = null;
@@ -22,7 +24,23 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public User findByUsername(String username) {
-        return null;
+        List<User> users = new ArrayList<>();
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * from users where username = '"+username+"'");
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getLong("id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("password")
+                ));
+            }
+            return users.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving username.", e);
+        }
     }
 
     @Override
