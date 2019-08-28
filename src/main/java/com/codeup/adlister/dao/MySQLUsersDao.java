@@ -25,10 +25,11 @@ public class MySQLUsersDao implements Users {
     @Override
     public User findByUsername(String username) {
         List<User> users = new ArrayList<>();
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         try {
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * from users where username = '"+username+"'");
+            stmt = connection.prepareStatement("SELECT * from users where username = ?");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 users.add(new User(
                         rs.getLong("id"),
@@ -46,7 +47,7 @@ public class MySQLUsersDao implements Users {
     @Override
     public Long insert(User user) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT into users(username, email, password) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connection.prepareStatement("INSERT into users(username, email, password) values (?,?,?);", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
